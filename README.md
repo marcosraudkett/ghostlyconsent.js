@@ -313,11 +313,6 @@ Different state changes:
       <td>personalize</td>
       <td>When personalization is triggered</td>
     </tr>
-    <!-- personalize -->
-    <tr>
-      <td>personalize</td>
-      <td>string</td>
-    </tr>
     <!-- appendFile -->
     <tr>
       <td>appendFile</td>

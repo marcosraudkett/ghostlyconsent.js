@@ -10,6 +10,11 @@
     <script src="../dist/GhostlyConsent.js"></script>
   </head>
   
+  <div class="text-center">
+    <a href="index.html">Simple</a>
+    <a href="minimal.html">Minimal</a>
+    <a href="#">Modal Example</a>
+  </div>
   
   <div class="ghostly-consent-banner gh-modal" id="gh-cookie-consent" style="display: none;">
     <div class="ghostly-consent-banner__inner gh-modal-content" id="gh-modal">
@@ -45,6 +50,7 @@
   // Options
   // if you'd like to send feedback to developers then set register: true (default: false)
   var options = {
+    name: '_modal',
     elements: {
       consentWrapper: '#gh-cookie-consent'
     },

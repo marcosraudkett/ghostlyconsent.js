@@ -51,16 +51,16 @@ let ghostlyConsent = {
     var cookie = this.get(this._config._cookie); // get cookie
     this.setOptions(options, files); // set user defined options
     this.bindEvents(); // bind clicks and other misc events
-    if(!this.check()) { this.display(true); } else { this.destroy(); } // check if cookie isset
-    if(cookie == 'true') { 
+    if(this.get(this._config._cookie) == 'true') { 
       if(this.get('_ghostly_files')) {
-        this.load(this.get('_ghostly_files'));
+        this.load(JSON.parse(this.get('_ghostly_files')));
       } else {
-        this.set(JSON.stringify(this._files), '_ghostly_files');
+        this.set(this._files, '_ghostly_files');
         this.load();
       }
     } // check cookie value for loading files
     this.register(); // register Ghostly (for analytical purposes)
+    if(!this.check()) { this.display(true); } else { this.destroy(); } // check if cookie isset
     var buttonsPersonalize = document.querySelector(this._config._elements.buttonsPersonalize);
 
     if(!files) {
@@ -142,9 +142,9 @@ let ghostlyConsent = {
     if(value) {
       // only load if accepted
       if(this.get('_ghostly_files')) {
-        this.load(JSON.stringify(this.get('_ghostly_files')));
+        this.load(JSON.parse(this.get('_ghostly_files')));
       } else {
-        this.set(JSON.stringify(this._files), '_ghostly_files');
+        this.set(this._files, '_ghostly_files');
         this.load();
       }
     }
@@ -397,8 +397,6 @@ let ghostlyConsent = {
    * Load apps
    */
   load: function(files = null) {
-    console.log(files);
-    if(files) { this._files = JSON.parse(files); }
     loaded = {};
     loaded.files = [];
     this._files.forEach((file, index) => {
@@ -459,7 +457,7 @@ let ghostlyConsent = {
     }
 
     // event 
-    this.addEvent('loadFiles', this);
+    this.addEvent('filesLoaded', this);
   },
 
   /**
@@ -595,22 +593,18 @@ let ghostlyConsent = {
     if(this._files.length > 0) {
       exists = false;
       this._files.forEach((file_, index) => {
-        console.log(file);
         if(Array.isArray(file)) {
           exists = false;
           var meta = this.search('meta', file_);
-          console.log(meta.name);
           if(element.checkbox.checked) {
             if(meta.name == element.checkbox.defaultValue) {
               exists = true;
             }
-            if(!exists) { this._files.push(file); console.log('add to files'); }
-            console.log('exists');
+            if(!exists) { this._files.push(file); }
           } else {
             if(meta.name == element.checkbox.defaultValue) {
-              console.log(index);
               // remove
-              this._files.splice(index, 1); console.log('remove from files');
+              this._files.splice(index, 1); 
             }
           }
         } else {
@@ -619,11 +613,11 @@ let ghostlyConsent = {
             if(file_.name == element.checkbox.defaultValue) {
               exists = true;
             }
-            if(!exists) { this._files.push(file); console.log('add to files 2'); }
+            if(!exists) { this._files.push(file); }
           } else {
             if(file_.name == element.checkbox.defaultValue) {
               // remove
-              this._files.splice(index, 1); console.log('remove from files 2');
+              this._files.splice(index, 1);
             }
           }
         }
@@ -631,11 +625,9 @@ let ghostlyConsent = {
         exists = false;
       });
     } else {
-      this._files.push(file); console.log('add to files 3');
+      this._files.push(file);
     }
 
-    console.log(file);
-    console.log(element);
   },
 
   /**

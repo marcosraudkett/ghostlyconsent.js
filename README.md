@@ -3,6 +3,9 @@
 ## About
 GhostlyConsent.js is a lightweight customizable open source Vanilla JavaScript cookie consent that does not need any thid-party components to work.
 
+## Examples 
+https://ghostly.marcosraudkett.com/examples/modal.html(https://ghostly.marcosraudkett.com/examples/modal.html)
+
 ## Installation
 ```
 git clone https://github.com/marcosraudkett/GhostlyConsent.js.git

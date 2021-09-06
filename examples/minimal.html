@@ -1,0 +1,44 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>GhostlyConsent.js - Minimal Example</title>
+  
+    <!-- GhostlyConsent.js -->
+    <link rel="stylesheet" href="../dist/GhostlyConsent.css">
+    <script src="../dist/GhostlyConsent.js"></script>
+  </head>
+  
+  
+  <div class="ghostly-consent-banner" id="gh-cookie-consent" style="display: none;">
+    <div class="ghostly-consent-banner__inner">
+      <div class="ghostly-consent-banner__copy">
+        <!-- consent title -->
+        <div class="ghostly-consent-banner__header">THIS WEBSITE USES COOKIES</div>
+        <!-- consent message -->
+        <div class="ghostly-consent-banner__description">
+          We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. 
+          We also share information about your use of our site with our social media, advertising and analytics partners 
+          who may combine it with other information that you've provided to them or that they've collected from your use 
+          of their services. You consent to our cookies if you continue to use our website.
+        </div>
+      </div>
+  
+      <!-- personalization form -->
+      <div class="ghostly-consent-personalize" id="gh-cookie-personalization" style="display: none;"></div>
+  
+      <!-- consent actions -->
+      <div class="ghostly-consent-banner__actions">
+        <a href="#" class="ghostly-consent-banner__cta" id="gh-cookie-enable">Accept all</a>
+        <a href="javascript:void(0);" class="ghostly-consent-banner__cta ghostly-consent-banner__cta--secondary" id="gh-cookie-decline">Decline all</a>
+        <a href="javascript:void(0);" class="ghostly-consent-banner__cta ghostly-consent-banner__cta--secondary pull-right" id="gh-cookie-personalize">Personalize</a>
+      </div>
+      <!-- /-- consent actions --/ -->
+    </div>
+  </div>
+  
+  <script>
+    // initialize without any options nor files
+    ghostlyConsent.init();
+</script>

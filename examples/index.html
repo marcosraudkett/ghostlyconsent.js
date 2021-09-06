@@ -1,0 +1,109 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>GhostlyConsent.js</title>
+
+  <!-- GhostlyConsent.js -->
+  <link rel="stylesheet" href="../dist/GhostlyConsent.css">
+  <script src="../dist/GhostlyConsent.js"></script>
+</head>
+
+
+<div class="ghostly-consent-banner" id="gh-cookie-consent" style="display: none;">
+  <div class="ghostly-consent-banner__inner">
+    <div class="ghostly-consent-banner__copy">
+      <!-- consent title -->
+      <div class="ghostly-consent-banner__header">THIS WEBSITE USES COOKIES</div>
+      <!-- consent message -->
+      <div class="ghostly-consent-banner__description">
+        We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. 
+        We also share information about your use of our site with our social media, advertising and analytics partners 
+        who may combine it with other information that you've provided to them or that they've collected from your use 
+        of their services. You consent to our cookies if you continue to use our website.
+      </div>
+    </div>
+
+    <!-- personalization form -->
+    <div class="ghostly-consent-personalize" id="gh-cookie-personalization" style="display: none;"></div>
+
+    <!-- consent actions -->
+    <div class="ghostly-consent-banner__actions">
+      <a href="#" class="ghostly-consent-banner__cta" id="gh-cookie-enable">Accept all</a>
+      <a href="javascript:void(0);" class="ghostly-consent-banner__cta ghostly-consent-banner__cta--secondary" id="gh-cookie-decline">Decline all</a>
+      <a href="javascript:void(0);" class="ghostly-consent-banner__cta ghostly-consent-banner__cta--secondary pull-right" id="gh-cookie-personalize">Personalize</a>
+    </div>
+    <!-- /-- consent actions --/ -->
+  </div>
+</div>
+
+<script>
+  // Options
+  // if you'd like to send feedback to developers then set register: true (default: false)
+  // callback option sends accepted/allowed files to specified url as POST request with application/json header for tracking (optional)
+  var options = {
+    elements: {
+      consentWrapper: '#gh-cookie-consent'
+    },
+    register: false,
+    callback: 'https://example.com/callback'
+  };
+
+  // files you wish to load after accepted 
+  // if array is used then set scope: permissions and use disallowed in there to set rule for all files 
+  // if disallowed key is not set then the default is set to true
+  // if type is not set then it will load the file using ajax
+  var files = [
+    {
+      title: 'Google Fonts',
+      name: 'font',
+      file: 'https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap',
+      type: 'css',
+      ajax: false,
+      disallowed: false
+    },
+    analytics = [
+      {
+        scope: 'meta',
+        title: 'Google Analytics'
+      },
+      {
+        scope: 'permissions',
+        disallowed: false
+      },
+      {
+        name: 'analytics',
+        file: 'https://www.googletagmanager.com/gtag/js?id=UA-44404621-1',
+        type: 'js'
+      },
+      {
+        name: 'analytics',
+        file: '../vendor/Google-Analytics.js',
+        type: 'js'
+      }
+    ],
+  ];
+
+  // initialize
+  ghostlyConsent.init(options, files);
+    
+  // calls function statusChange(); after consents state is changed
+  ghostlyConsent.onStateChange('status', statusChange);
+
+  function statusChange(event) {
+    // get the whole event
+    console.log(event);
+
+    // do something if consent is accepted
+    if(event.value) {
+      // do something if consent is accepted
+      // alternatively you can use this to load your own files
+      // or do something else..
+      console.log("Consent was accepted");
+    } else {
+      // do something if consent is rejected
+      console.log("Consent was rejected");
+    }
+  }
+</script>

@@ -29,7 +29,8 @@ var options = {
 };
 
 // files you wish to load after accepted 
-// if array is used then set scope: permissions and use disallowed in there to set rule for all files 
+// if array is used inside "files" then set scope: permissions and use disallowed 
+// in there to set rule for all files 
 // if disallowed key is not set then the default is set to true
 // if type is not set then it will load the file using ajax
 var files = [

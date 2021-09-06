@@ -32,6 +32,8 @@ var options = {
 // if array is used inside "files" then set scope: permissions and use disallowed in there to set rule for all files 
 // if disallowed key is not set then the default is set to true
 // if type is not set then it will load the file using ajax
+
+// ---///--- name, title, file & type (css/js) keys are REQUIRED! ---///---
 var files = [
 {
     title: 'Google Fonts',

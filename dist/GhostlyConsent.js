@@ -550,7 +550,7 @@ let ghostlyConsent = {
       if(this._config._debug) { alert('GhostlyConsent.js - '+component+': '+text); }
     } else {
       console.log('%c GhostlyConsent.js - '+text, 'background: #151515; color: #ff304d');
-      if(this._config._debug) { alert('GhostlyConsent.js - '+component+': '+text); }
+      if(this._config._debug) { alert('GhostlyConsent.js - '+text); }
     }
   },
 

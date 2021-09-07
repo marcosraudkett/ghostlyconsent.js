@@ -55,7 +55,7 @@ let ghostlyConsent = {
       if(this.get('_ghostly_files')) {
         this.load(JSON.parse(this.get('_ghostly_files')));
       } else {
-        this.set(this._files, '_ghostly_files');
+        this.set(JSON.stringify(this._files), '_ghostly_files');
         this.load();
       }
     } // check cookie value for loading files
@@ -144,7 +144,7 @@ let ghostlyConsent = {
       if(this.get('_ghostly_files')) {
         this.load(JSON.parse(this.get('_ghostly_files')));
       } else {
-        this.set(this._files, '_ghostly_files');
+        this.set(JSON.stringify(this._files), '_ghostly_files');
         this.load();
       }
     }
@@ -170,7 +170,7 @@ let ghostlyConsent = {
 
   /**
    * Personalize
-   * @param {bool} value 
+   * @param {array} files 
    */
   personalize: function(files) {
     var consentWrapper = document.querySelector(this._config._elements.consentWrapper);
@@ -376,6 +376,9 @@ let ghostlyConsent = {
     this._state = true;
   },
 
+  /**
+   * BindEvents
+   */
   bindEvents: function() {
     invalid = [];
     for (const [key, value] of Object.entries(this._config._elements)) {
@@ -394,7 +397,7 @@ let ghostlyConsent = {
   },
 
   /**
-   * Load apps
+   * Load files
    */
   load: function(files = null) {
     loaded = {};
@@ -587,6 +590,11 @@ let ghostlyConsent = {
     }
   },
 
+  /**
+   * When a checkbox has been checked (this will remove or add to the list of files to load)
+   * @param {array} file 
+   * @param {array} element 
+   */
   consentChange: function(file, element) {
     this._files_consent = [];
     var file = JSON.parse(file);

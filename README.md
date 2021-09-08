@@ -49,19 +49,18 @@ var files = [
 analytics = [
         {
         scope: 'meta',
-        title: 'Google Analytics'
+        title: 'Google Analytics',
+        name: 'analytics'
         },
         {
         scope: 'permissions',
         disallowed: false
         },
         {
-        name: 'analytics',
         file: 'https://www.googletagmanager.com/gtag/js?id=UA-44404621-1',
         type: 'js'
         },
         {
-        name: 'analytics',
         file: '../vendor/Google-Analytics.js', // this file has the rest of the Google Analytics code
         type: 'js'
         }

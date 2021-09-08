@@ -219,9 +219,9 @@ let ghostlyConsent = {
 
                 var label = document.createElement('label');
                 if(meta.title) {
-                  label.innerText = meta.title;
+                  label.innerHTML = meta.title;
                 } else {
-                  label.innerText = file.file;
+                  label.innerHTML = file.file;
                 }
                 label.setAttribute('for', checkbox.id);
                 row.appendChild(label);
@@ -243,9 +243,9 @@ let ghostlyConsent = {
 
               var label = document.createElement('label');
               if(file.title) {
-                label.innerText = file.title;
+                label.innerHTML = file.title;
               } else {
-                label.innerText = file.file;
+                label.innerHTML = file.file;
               }
               label.setAttribute('for', checkbox.id);
               row.appendChild(label);

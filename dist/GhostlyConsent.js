@@ -400,6 +400,7 @@ let ghostlyConsent = {
    * Load files
    */
   load: function(files = null) {
+    if(files) { this._files = files; }
     loaded = {};
     loaded.files = [];
     this._files.forEach((file, index) => {

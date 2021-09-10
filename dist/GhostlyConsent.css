@@ -174,7 +174,7 @@
   font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 2147483645 !important; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
@@ -249,6 +249,28 @@
   border-bottom-right-radius: 10px;
 }
 
+/* 
+  bottom right corner widget for reopening the cookie container
+  add an eventlistener to this element with ghostlyConsent.display(true); function to show the consent container.
+  also you have to have destroy option set to false.
+*/
+.gh-widget {
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
+  right: 30px;
+  background: black;
+  color: white;
+  padding: 3px 11px 2px 11px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.gh-widget > p {
+  margin: 3px !important;
+}
 
 /* mobile */
 @media (max-width: 960px) {

@@ -10,6 +10,7 @@ let ghostlyConsent = {
   _state: null,
   _config: {
     _debug: false,
+    _destroy: false,
     _data: null,
     _register: false,
     _ajax: false,
@@ -60,7 +61,7 @@ let ghostlyConsent = {
       }
     } // check cookie value for loading files
     this.register(); // register Ghostly (for analytical purposes)
-    if(!this.check()) { this.display(true); } else { this.destroy(); } // check if cookie isset
+    if(!this.check()) { this.display(true); } else { if(this._config._destroy) { this.destroy(); } } // check if cookie isset
     var buttonsPersonalize = document.querySelector(this._config._elements.buttonsPersonalize);
 
     if(!files) {
@@ -91,6 +92,7 @@ let ghostlyConsent = {
    * @param {*} name 
    */
   get: function(name) {
+    if(!name) { name = this._config._cookie; }
     let cname = name + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -149,7 +151,7 @@ let ghostlyConsent = {
       }
     }
     this.display(false);
-    this.destroy();
+    if(this._config._destroy) { this.destroy(); }
 
     // event 
     this.addEvent('status', value);
@@ -349,6 +351,7 @@ let ghostlyConsent = {
       if(typeof options.length !== 'undefined') { this._config._length = options.length; } 
       if(typeof options.debug !== 'undefined') { this._config._debug = options.debug; } 
       if(typeof options.isModal !== 'undefined') { this._config._isModal = options.isModal; } 
+      if(typeof options.destroy !== 'undefined') { this._config._destroy = options.destroy; } 
 
       if(typeof options.text !== 'undefined') {
         for (const [key, value] of Object.entries(options.text)) {
@@ -659,11 +662,12 @@ let ghostlyConsent = {
     setInterval(function() {
       if(events.length > 0) {
         events.forEach((event, index) => {
-          if(state == event.event) { callback(event); }
+          if(state == event.event) { 
+            callback(event); 
+            events.splice(index, 1); 
+          }
         });
       }
-
-      events.length = 0;
     }, 100);
   },
 

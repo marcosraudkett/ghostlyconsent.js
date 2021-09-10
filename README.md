@@ -3,6 +3,8 @@
 ## About
 GhostlyConsent.js is a lightweight customizable open source Vanilla JavaScript cookie consent that does not need any third-party components to work.
 
+![68747470733a2f2f7777772e6d6172636f73726175646b6574742e636f6d2f6173736574732f696d616765732f70726f64756374732f67686f73746c79636f6e73656e742e706e67](https://user-images.githubusercontent.com/23305471/132923260-db791540-defe-4860-9d31-02bb6d25bbdd.png)
+
 ## Examples 
 https://ghostly.marcosraudkett.com/examples/modal.html
 
@@ -125,6 +127,14 @@ Here's everything you can setup: (none of the options are required)
       <td>_ghostly_consent</td>
       <td>No</td>
     </tr>
+    <!-- destroy -->
+    <tr>
+      <td>destroy</td>
+      <td>Remove cookie container if cookie exists / or has been enabled/disabled</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
     <!-- domain -->
     <tr>
       <td>domain</td>
@@ -153,7 +163,7 @@ Here's everything you can setup: (none of the options are required)
     <tr>
       <td>debug</td>
       <td>Shows errors as alerts();</td>
-      <td>bool</td>
+      <td>boolean</td>
       <td>false</td>
       <td>No</td>
     </tr>

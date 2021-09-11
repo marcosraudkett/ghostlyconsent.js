@@ -287,7 +287,7 @@ ghostlyConsent.on('accepted', (event) => { console.log("accepted: "+event.value)
 ```
 <table>
   <thead>
-    <th>State</th>
+    <th>Event</th>
     <th>Description</th>
   </thead>
   <tbody>

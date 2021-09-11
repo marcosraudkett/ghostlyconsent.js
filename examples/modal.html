@@ -47,7 +47,7 @@
     </div>
   </div>
   
-  <!-- bottom cookie bar (personalizer) -->
+  <!-- bottom cookie bar -->
   <div class="gh-widget"><p>Cookies</p></div>
 
   <script>
@@ -100,7 +100,7 @@
   ghostlyConsent.on('status', statusChange);
 
   // calls function onload(); after Ghostly is ready
-  ghostlyConsent.on('load', ready);
+  ghostlyConsent.on('initialized', ready);
 
   // calls function personalize(); after personalize button is triggered
   ghostlyConsent.on('personalize', personalize);

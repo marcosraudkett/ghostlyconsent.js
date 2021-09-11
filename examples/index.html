@@ -14,6 +14,7 @@
   <a href="#">Simple</a>
   <a href="minimal.html">Minimal</a>
   <a href="modal.html">Modal Example</a>
+  <a href="events.html">Events</a>
 </div>
 
 <div class="ghostly-consent-banner" id="gh-cookie-consent" style="display: none;">
@@ -45,14 +46,12 @@
 
 <script>
   // Options
-  // if you'd like to send feedback to developers then set register: true (default: false)
   // callback option sends accepted/allowed files to specified url as POST request with application/json header for tracking (optional)
   var options = {
     name: 'index',
     elements: {
       consentWrapper: '#gh-cookie-consent'
-    },
-    register: false
+    }
   };
 
   // files you wish to load after accepted 
@@ -93,7 +92,7 @@
   ghostlyConsent.init(options, files);
     
   // calls function statusChange(); after consents state is changed
-  ghostlyConsent.onStateChange('status', statusChange);
+  ghostlyConsent.on('status', statusChange);
 
   function statusChange(event) {
     // get the whole event

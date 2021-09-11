@@ -3,16 +3,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>GhostlyConsent.js - Minimal Example</title>
+    <title>GhostlyConsent.js</title>
   
     <!-- GhostlyConsent.js -->
     <link rel="stylesheet" href="../dist/GhostlyConsent.css">
-    <script src="../dist/GhostlyConsent.js"></script>
+    <script src="../dist/GhostlyConsent.min.js"></script>
   </head>
   
   <div class="text-center">
-    <a href="index.html">Simple</a>
-    <a href="#">Minimal</a>
+    <a href="#">Simple</a>
+    <a href="minimal.html">Minimal</a>
     <a href="modal.html">Modal Example</a>
     <a href="events.html">Events</a>
   </div>
@@ -45,6 +45,19 @@
   </div>
   
   <script>
-    // initialize without any options nor files
-    ghostlyConsent.init();
-</script>
+    // initialize (cookie name: events)
+    ghostlyConsent.init({
+        name: 'events'
+    });
+      
+    ghostlyConsent.on('initialized', (event) => { console.log("initialized: "); console.log(event); });
+    ghostlyConsent.on('popupOpened', () => { console.log("popupOpened"); });
+    ghostlyConsent.on('popupClosed', () => { console.log("popupClosed"); });
+    ghostlyConsent.on('popup', (event) => { console.log("popup state: "+event.value); });
+    ghostlyConsent.on('rejected', (event) => { console.log("rejected: "+event.value); });
+    ghostlyConsent.on('accepted', (event) => { console.log("accepted: "+event.value); });
+
+    ghostlyConsent.on('status', (event) => { 
+      console.log("status: "+event.value); 
+    });
+  </script>

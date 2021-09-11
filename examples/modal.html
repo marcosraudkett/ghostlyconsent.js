@@ -14,6 +14,7 @@
     <a href="index.html">Simple</a>
     <a href="minimal.html">Minimal</a>
     <a href="#">Modal Example</a>
+    <a href="events.html">Events</a>
   </div>
   
   <div class="ghostly-consent-banner gh-modal" id="gh-cookie-consent" style="display: none;">
@@ -51,7 +52,6 @@
 
   <script>
   // Options
-  // if you'd like to send feedback to developers then set register: true (default: false)
   var options = {
     name: '_modal',
     elements: {
@@ -97,13 +97,13 @@
   ghostlyConsent.init(options, files);
     
   // calls function statusChange(); after consents state is changed
-  ghostlyConsent.onStateChange('status', statusChange);
+  ghostlyConsent.on('status', statusChange);
 
   // calls function onload(); after Ghostly is ready
-  ghostlyConsent.onStateChange('load', ready);
+  ghostlyConsent.on('load', ready);
 
   // calls function personalize(); after personalize button is triggered
-  ghostlyConsent.onStateChange('personalize', personalize);
+  ghostlyConsent.on('personalize', personalize);
 
   // statusChange
   function statusChange(event) {

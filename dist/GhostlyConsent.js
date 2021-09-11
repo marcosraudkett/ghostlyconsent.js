@@ -61,7 +61,7 @@ let ghostlyConsent = {
       }
     } // check cookie value for loading files
     this.register(); // register Ghostly (for analytical purposes)
-    if(!this.check()) { this.display(true); } else { if(this._config._destroy) { this.destroy(); } } // check if cookie isset
+    if(!this.check()) { this.display(true); this.addEvent('status', false); } else { if(this._config._destroy) { this.destroy(); this.addEvent('status', true); } } // check if cookie isset
     var buttonsPersonalize = document.querySelector(this._config._elements.buttonsPersonalize);
 
     if(!files) {
@@ -69,7 +69,7 @@ let ghostlyConsent = {
     }
 
     // event 
-    this.addEvent('load', true);
+    this.addEvent('initialized', true);
 
     return new Promise(function (resolve, reject) {
         _this.ready(resolve, reject);
@@ -142,6 +142,7 @@ let ghostlyConsent = {
   enable: function(value) {
     this.set(value);
     if(value) {
+      this.addEvent('accepted', true); this.addEvent('rejected', false);
       // only load if accepted
       if(this.get('_ghostly_files')) {
         this.load(JSON.parse(this.get('_ghostly_files')));
@@ -149,6 +150,8 @@ let ghostlyConsent = {
         this.set(JSON.stringify(this._files), '_ghostly_files');
         this.load();
       }
+    } else {
+      this.addEvent('accepted', false); this.addEvent('rejected', true);
     }
     this.display(false);
     if(this._config._destroy) { this.destroy(); }
@@ -316,8 +319,10 @@ let ghostlyConsent = {
     var consentWrapper = document.querySelector(this._config._elements.consentWrapper);
     if(consentWrapper) {
       if(value) {
+        this.addEvent('popupOpened', true); this.addEvent('popup', true);
         consentWrapper.setAttribute("style","display:block;");
       } else {
+        this.addEvent('popupClosed', true); this.addEvent('popup', false);
         consentWrapper.setAttribute("style","display:none;");
       }
     } else {
@@ -559,6 +564,8 @@ let ghostlyConsent = {
       console.log('%c GhostlyConsent.js - '+text, 'background: #151515; color: #ff304d');
       if(this._config._debug) { alert('GhostlyConsent.js - '+text); }
     }
+
+    this.addEvent('error', text);
   },
 
   /**
@@ -657,7 +664,7 @@ let ghostlyConsent = {
   /**
    * Events
   */
-  onStateChange: function(state, callback) {
+  on: function(state, callback) {
     var events = this._events;
     setInterval(function() {
       if(events.length > 0) {

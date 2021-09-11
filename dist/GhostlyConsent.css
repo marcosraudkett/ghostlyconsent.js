@@ -175,9 +175,8 @@
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 2147483645 !important; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
   left: 0;
-  top: 0;
+  bottom: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
@@ -187,13 +186,15 @@
 
 /* Modal Content */
 .gh-modal-content {
-  position: relative;
+  position: absolute;
   background-color: #fefefe;
   margin: auto;
   padding: 0;
-  border: 1px solid #888;
-  width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  bottom: 25;
+  left: 50%;
+  transform: translateY(-25px) translateX(-50%);
+  width: 40%;
+  box-shadow: 0 0px 18px 0 rgb(37 37 37 / 12%), 0 10px 23px 0 rgb(136 136 136 / 19%);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
@@ -204,13 +205,13 @@
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0} 
-  to {top:0; opacity:1}
+  from {bottom:-300px; opacity:0} 
+  to {bottom:25; opacity:1}
 }
 
 @keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
+  from {bottom:-300px; opacity:0}
+  to {bottom:25; opacity:1}
 }
 
 /* The Close Button */
@@ -231,7 +232,7 @@
 
 .gh-modal-header {
   padding: 20px 16px;
-  background-color: #F1F6F4;
+  background-color: #efefef;
   color: #171717;
 
   border-top-left-radius: 10px;
@@ -242,7 +243,7 @@
 
 .gh-modal-footer {
   padding: 10px 16px;
-  background-color: #F1F6F4;
+  background-color: #efefef;
   color: #171717;
 
   border-bottom-left-radius: 10px;

@@ -23,13 +23,11 @@ Adding it to your project:
 Basic usage:
 ```js
 // Options
-// if you'd like to send feedback to developers then set register: true (default: false)
 // callback option sends accepted/allowed files to specified url as POST request with application/json header for tracking (optional)
 var options = {
     elements: {
         consentWrapper: '#gh-cookie-consent'
     },
-    register: false,
     callback: 'https://example.com/callback'
 };
 
@@ -73,13 +71,12 @@ analytics = [
 ghostlyConsent.init(options, files);
 
 // calls function statusChange(); after consents state is changed
-ghostlyConsent.onStateChange('status', statusChange);
+ghostlyConsent.on('status', statusChange);
 
 function statusChange(event) {
     // get the whole event
     console.log(event);
 
-    // do something if consent is accepted
     if(event.value) {
         // do something if consent is accepted
         // alternatively you can use this to load your own files
@@ -278,44 +275,56 @@ Options.text:
   </tbody>
 </table>
 
-## Methods
-calls "myFunction" on status change.
+## Events
 ```js
-ghostlyConsent.onStateChange('status', myFunction);
-
-// example function
-function myFunction(event) {
-    // get the whole event
-    console.log(event);
-
-    // do something if consent is accepted
-    if(event.value) {
-        // do something if consent is accepted
-        // alternatively you can use this to load your own files
-        // or do something else..
-        console.log("Consent was accepted");
-    } else {
-        // do something if consent is rejected
-        console.log("Consent was rejected");
-    }
-}
+ghostlyConsent.on('initialized', (event) => { console.log("initialized: "); console.log(event); });
+ghostlyConsent.on('popupOpened', () => { console.log("popupOpened"); });
+ghostlyConsent.on('popupClosed', () => { console.log("popupClosed"); });
+ghostlyConsent.on('popup', (event) => { console.log("popup state: "+event.value); });
+ghostlyConsent.on('status', (event) => { console.log("status: "+event.value); });
+ghostlyConsent.on('rejected', (event) => { console.log("rejected: "+event.value); });
+ghostlyConsent.on('accepted', (event) => { console.log("accepted: "+event.value); });
 ```
-Different state changes:
 <table>
   <thead>
     <th>State</th>
     <th>Description</th>
   </thead>
   <tbody>
+    <!-- initialized -->
+    <tr>
+      <td>initialized</td>
+      <td>-</td>
+    </tr>
     <!-- status -->
     <tr>
       <td>status</td>
       <td>When cookie status is changed</td>
     </tr>
-    <!-- load -->
+    <!-- accepted -->
     <tr>
-      <td>load</td>
-      <td>After Ghostly is loaded</td>
+      <td>accepted</td>
+      <td>After consent is accepted</td>
+    </tr>
+    <!-- rejected -->
+    <tr>
+      <td>rejected</td>
+      <td>After consent is rejected</td>
+    </tr>
+    <!-- popupOpened -->
+    <tr>
+      <td>popupOpened</td>
+      <td>After consent is opened</td>
+    </tr>
+    <!-- popupClosed -->
+    <tr>
+      <td>popupClosed</td>
+      <td>After consent is closed</td>
+    </tr>
+    <!-- personalize -->
+    <tr>
+      <td>personalize</td>
+      <td>When personalization is triggered</td>
     </tr>
     <!-- personalize -->
     <tr>

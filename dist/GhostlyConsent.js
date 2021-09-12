@@ -267,7 +267,7 @@ let ghostlyConsent = {
           buttonsEnable.innerText = this._config._text.acceptAll;
         }
         consentWrapper.classList.remove('personalize');
-        consentWrapper.setAttribute("style","height:auto;display:block;");
+        consentWrapper.setAttribute("style","display:block;");
         if(personalizeWrapper) { personalizeWrapper.setAttribute("style","display:none;"); personalizeWrapper.innerHTML = ''; }
         
         // event 

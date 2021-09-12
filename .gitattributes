@@ -1,0 +1,5 @@
+# linguist-detectable
+/dist/*.js linguist-detectable
+
+# -linguist-documentation
+/dist/*.js -linguist-documentation

@@ -17,6 +17,14 @@ Adding it to your project:
 <!-- GhostlyConsent.js -->
 <link rel="stylesheet" href="path/to/dist/GhostlyConsent.css">
 <script src="path/to/dist/GhostlyConsent.js"></script>
+
+<!-- Using CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.css">
+<script src="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.js"></script>
+
+<!-- CDN - Minified -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.min.css">
+<script src="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.min.js"></script>
 ```
 
 ## Usage

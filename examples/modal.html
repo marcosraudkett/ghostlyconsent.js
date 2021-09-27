@@ -96,21 +96,12 @@
   // initialize
   ghostlyConsent.init(options, files);
     
-  // calls function statusChange(); after consents state is changed
-  ghostlyConsent.on('status', statusChange);
-
-  // calls function onload(); after Ghostly is ready
-  ghostlyConsent.on('initialized', ready);
-
-  // calls function personalize(); after personalize button is triggered
-  ghostlyConsent.on('personalize', personalize);
-
-  // statusChange
-  function statusChange(event) {
+  // when consent status is changed
+  ghostlyConsent.on('status',  (event) => {
     // get the whole event
     console.log(event);
 
-    if(event.value) {
+    if (event.value) {
       // do something if consent is accepted
       // alternatively you can use this to load your own files
       // or do something else..
@@ -119,14 +110,13 @@
       // do something if consent is rejected
       console.log("Consent was rejected");
     }
- 
-  }
+  });
 
-  // ready
-  function ready(event) {
+  // on initialized
+  ghostlyConsent.on('initialized', (event) => {
     // bind click to .gh-widget
     var widget = document.querySelector('.gh-widget');
-    widget.addEventListener('click', function(eventObj) { 
+    widget.addEventListener('click', function (eventObj) {
       ghostlyConsent.display(true);
     });
 
@@ -136,19 +126,19 @@
 
     // example of getting the cookie value
     var cookieValue = ghostlyConsent.get(); // returns cookie value (string)
-    if(cookieValue == 'true') {
+    if (cookieValue == 'true') {
       console.log("cookieValue: true"); // consent has been accepted
     } else {
       console.log("cookieValue: false"); // consent has not been accepted
     }
-  }
+  });
 
-  // personalize
-  function personalize(event) {
-    if(event.value) {
+  // personalization is triggered
+  ghostlyConsent.on('personalize', (event) => {
+    if (event.value) {
       console.log("personalize: true"); // personalize is open
     } else {
       console.log("personalize: false"); // personalize is closed
     }
-  }
+  });
 </script>

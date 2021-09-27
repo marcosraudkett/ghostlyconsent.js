@@ -190,7 +190,7 @@
   background-color: #fefefe;
   margin: auto;
   padding: 0;
-  bottom: 25;
+  bottom: 25px;
   left: 50%;
   transform: translateY(-25px) translateX(-50%);
   width: 40%;

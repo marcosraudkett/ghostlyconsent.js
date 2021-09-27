@@ -36,6 +36,7 @@ var options = {
 // if disallowed key is not set then the default is set to true
 // if type is not set then it will load the file using ajax
 
+// Alternatively you can use events to load your files or do something when the status is changed (check below .init())
 // ---///--- name, title, file & type (css/js) keys are REQUIRED! ---///---
 var files = [
 {
@@ -48,21 +49,21 @@ var files = [
 },
 analytics = [
         {
-        scope: 'meta',
-        title: 'Google Analytics',
-        name: 'analytics'
+          scope: 'meta',
+          title: 'Google Analytics',
+          name: 'analytics'
         },
         {
-        scope: 'permissions',
-        disallowed: false
+          scope: 'permissions',
+          disallowed: false
         },
         {
-        file: 'https://www.googletagmanager.com/gtag/js?id=UA-44404621-1',
-        type: 'js'
+          file: 'https://www.googletagmanager.com/gtag/js?id=UA-44404621-1',
+          type: 'js'
         },
         {
-        file: '../vendor/Google-Analytics.js', // this file has the rest of the Google Analytics code
-        type: 'js'
+          file: '../vendor/Google-Analytics.js', // this file has the rest of the Google Analytics code
+          type: 'js'
         }
     ],
 ];
@@ -70,23 +71,21 @@ analytics = [
 // initialize
 ghostlyConsent.init(options, files);
 
-// calls function statusChange(); after consents state is changed
-ghostlyConsent.on('status', statusChange);
+// when consent status is changed
+ghostlyConsent.on('status',  (event) => {
+  // get the whole event
+  console.log(event);
 
-function statusChange(event) {
-    // get the whole event
-    console.log(event);
-
-    if(event.value) {
-        // do something if consent is accepted
-        // alternatively you can use this to load your own files
-        // or do something else..
-        console.log("Consent was accepted");
-    } else {
-        // do something if consent is rejected
-        console.log("Consent was rejected");
-    }
-}
+  if (event.value) {
+    // do something if consent is accepted
+    // alternatively you can use this to load your own files
+    // or do something else..
+    console.log("Consent was accepted");
+  } else {
+    // do something if consent is rejected
+    console.log("Consent was rejected");
+  }
+});
 ```
 
 ## Options
@@ -320,11 +319,6 @@ ghostlyConsent.on('accepted', (event) => { console.log("accepted: "+event.value)
     <tr>
       <td>popupClosed</td>
       <td>After consent is closed</td>
-    </tr>
-    <!-- personalize -->
-    <tr>
-      <td>personalize</td>
-      <td>When personalization is triggered</td>
     </tr>
     <!-- personalize -->
     <tr>

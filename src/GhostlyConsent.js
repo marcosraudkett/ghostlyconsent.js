@@ -1,6 +1,6 @@
 /**
  *  GhostlyConsent.js 2021
- *  v2.0.5
+ *  v2.1.0
  *
  *  @author Marcos Raudkett 2021
  *  @license MIT (https://opensource.org/licenses/MIT)

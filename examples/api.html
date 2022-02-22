@@ -1,0 +1,108 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>GhostlyConsent.js</title>
+  
+    <!-- GhostlyConsent.js -->
+    <link rel="stylesheet" href="../src/GhostlyConsent.css">
+    <script src="../src/GhostlyConsent.js"></script>
+  </head>
+  
+  <div class="text-center">
+    <a href="#">Simple</a>
+    <a href="minimal.html">Minimal</a>
+    <a href="modal.html">Modal Example</a>
+    <a href="events.html">Events</a>
+  </div>
+  
+  <div class="ghostly-consent-banner gc-main" style="display: none;">
+    <div class="ghostly-consent-banner__inner">
+      <div class="ghostly-consent-banner__copy">
+        <!-- consent title -->
+        <div class="ghostly-consent-banner__header">COOKIES</div>
+        <!-- consent message -->
+        <div class="ghostly-consent-banner__description">
+          We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. 
+          We also share information about your use of our site with our social media, advertising and analytics partners 
+          who may combine it with other information that you've provided to them or that they've collected from your use 
+          of their services. You consent to our cookies if you continue to use our website.
+        </div>
+      </div>
+  
+      <!-- personalization form -->
+      <div class="ghostly-consent-personalize gc-personalization" style="display: none;"></div>
+  
+      <!-- consent actions -->
+      <div class="ghostly-consent-banner__actions">
+        <a href="#" class="ghostly-consent-banner__cta gc-accept">Accept all</a>
+        <a href="javascript:void(0);" class="ghostly-consent-banner__cta ghostly-consent-banner__cta--secondary gc-decline">Decline all</a>
+        <a href="javascript:void(0);" class="ghostly-consent-banner__cta ghostly-consent-banner__cta--secondary pull-right gc-personalize">Personalize</a>
+      </div>
+      <!-- /-- consent actions --/ -->
+    </div>
+  </div>
+  
+  <script>
+    // initialize (cookie name: api)
+    const _gc = ghostlyConsent;
+    _gc.init({
+        name: 'api',
+        text: {
+            acceptAll: 'Okay cool',
+            acceptSelected: 'Only selected',
+            personalize: 'Edit',
+            choose: 'Choose the functionalities you wish to enable/disable',
+        },
+        elements: {
+            consentWrapper: '.gc-main',
+            personalizeWrapper: '.gc-personalization',
+            buttonsEnable: '.gc-accept',
+            buttonsDecline: '.gc-decline',
+            buttonsPersonalize: '.gc-personalize'
+        }
+    });
+
+
+    // files
+    var files = [
+        {
+            title: 'Google Fonts',
+            name: 'font',
+            file: 'https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap',
+            type: 'css',
+        },
+        {
+            title: 'Test script',
+            name: 'test',
+            file: '/',
+            type: 'js',
+        }
+    ];
+    // single file
+    var single = {
+        title: 'Single file example',
+        name: 'googl',
+        file: '../',
+        type: 'js',
+    };
+    
+    // add files after initialization
+    _gc.addFiles(files);
+    // add a single file after initialization
+    _gc.addFile(single);
+      
+
+    _gc.on('status', (event) => { 
+
+    });
+
+    _gc.on('addFile', (event) => { 
+      console.log("added a new file...");
+
+      // get files
+      var files = _gc.getFiles();
+      console.log(files);
+    });
+  </script>

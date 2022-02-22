@@ -39,7 +39,7 @@ Basic usage:
 ```js
 // Options
 // callback option sends accepted/allowed files to specified url as POST request with application/json header for tracking (optional)
-var options = {
+const options = {
     elements: {
         consentWrapper: '#gh-cookie-consent'
     },
@@ -53,16 +53,16 @@ var options = {
 
 // Alternatively you can use events to load your files or do something when the status is changed (check below .init())
 // ---///--- name, title, file & type (css/js) keys are REQUIRED! ---///---
-var files = [
-{
-    title: 'Google Fonts',
-    name: 'font',
-    file: 'https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap',
-    type: 'css',
-    ajax: false,
-    disallowed: false
-},
-analytics = [
+const files = [
+  {
+      title: 'Google Fonts',
+      name: 'font',
+      file: 'https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap',
+      type: 'css',
+      ajax: false,
+      disallowed: false
+  },
+  analytics = [
         {
           scope: 'meta',
           title: 'Google Analytics',
@@ -87,7 +87,7 @@ analytics = [
 ghostlyConsent.init(options, files);
 
 // when consent status is changed
-ghostlyConsent.on('status',  (event) => {
+ghostlyConsent.on('status', (event) => {
   // get the whole event
   console.log(event);
 
@@ -354,6 +354,48 @@ ghostlyConsent.on('accepted', (event) => { console.log("accepted: "+event.value)
     <tr>
       <td>filesLoaded</td>
       <td>When all files have been triggered</td>
+    </tr>
+  </tbody>
+</table>
+
+## API
+```js
+// add files after initialization
+var files = []; // list of files
+ghostlyConsent.addFiles(files);
+// add a single file after initialization
+var single = {
+    title: 'Single file example',
+    name: 'googl',
+    file: '../',
+    type: 'js',
+};
+ghostlyConsent.addFile(single);
+```
+<table>
+  <thead>
+    <th>Function</th>
+    <th>Input/Response</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <!-- addFiles -->
+    <tr>
+      <td>addFiles</td>
+      <td>array</td>
+      <td>Add multiple files after initialized.</td>
+    </tr>
+    <!-- addFile -->
+    <tr>
+      <td>addFile</td>
+      <td>object</td>
+      <td>Add a single file after initialization.</td>
+    </tr>
+    <!-- getFiles -->
+    <tr>
+      <td>getFiles</td>
+      <td>array</td>
+      <td>Get the list of files</td>
     </tr>
   </tbody>
 </table>

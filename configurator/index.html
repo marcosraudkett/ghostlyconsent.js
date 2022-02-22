@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <title>GhostlyConsent.js Configurator</title>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#"><span class="material-icons va-sub">cookie</span> Configurator</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link view-change" aria-current="page" href="#" data-target="new">New Config +</a></li>
+                        <li class="nav-item"><a class="nav-link config-reset" href="#" data-target="new">Reset Config</a></li>
+                        <li class="nav-item active"><a class="nav-link view-change" href="#" data-target="home">My Configs</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <!-- Page content-->
+
+        <!-- app -->
+        <main role="main" id="main">
+            <!-- configs -->
+            <div class="container py-3" data-view="home">
+                <div class="row no-gutters">
+                    <div class="col-12 mt-3">
+                        <h4>ghostlyConsent.js Configurator</h4>
+                        <p class="fs-2">
+                            You can use this configurator to easily create cookie banners for your website(s) <br>
+                            without any coding knowledge.
+                        </p>
+                        <div class="mb-4">
+                            <a href="#" class="btn btn-primary px-4 view-change" data-target="new">New Config</a>
+                            <a href="#" class="btn btn-warning px-4">Documentation <span class="material-icons" style="font-size:18px;">launch</span></a>
+                        </div>
+                    </div>
+                    <hr class="col-3 col-md-2 mb-5">
+                    <div class="table-responsive col-12">
+                        <h3 class="mb-4">My Configurations</h3>
+                        <input type="text" class="form-control mb-2 mt-3" placeholder="Filter configurations...">
+                        <table class="table table-hover">
+                            <thead>
+                                <th>Name</th>
+                                <th>State</th>
+                                <th>Settings</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>marcosraudkett.com</td>
+                                    <td>Ready <span class="material-icons text-success" style="font-size: 14px;">check_circle</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm">Edit</button>
+                                        <button class="btn btn-danger btn-sm">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>draft</td>
+                                    <td>Draft <span class="material-icons text-warning" style="font-size: 14px;">unpublished</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm">Edit</button>
+                                        <button class="btn btn-danger btn-sm">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- configs end -->
+            <!-- configurator -->
+            <div class="container col-12 pr-0 pl-0 d-none" data-view="new">
+                <div class="row no-gutters">
+                    <!-- Preview -->
+                    <div class="col" id="config-preview">
+                        <ul class="nav nav-pills bg-dark-1" id="nav-preview">
+                            <li class="nav-item">
+                                <a class="nav-link text-white active" href="#preview"  id="pills-preview-tab" data-toggle="tab" role="tab"
+                                    aria-controls="properties-tab" aria-selected="true">Preview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#" href="#live"  id="pills-live-tab" data-toggle="tab" role="tab"
+                                    aria-controls="properties-tab" aria-selected="false">Live Mode</a>
+                            </li>
+                            <li class="nav-item" title="Refresh preview">
+                                <a class="nav-link text-white" href="#"><span class="material-icons va-sub fs-22">refresh</span></a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            
+                            <!-- DEMO -->
+                            <div class="ghostly-consent-banner" id="gh-cookie-consent">
+                                <div class="ghostly-consent-banner__inner">
+                                    <div class="ghostly-consent-banner__copy">
+                                        <!-- consent title -->
+                                        <div class="ghostly-consent-banner__header">THIS WEBSITE USES COOKIES</div>
+                                        <!-- consent message -->
+                                        <div class="ghostly-consent-banner__description">
+                                            We use cookies to personalise content and ads, to provide social media features and to analyse our
+                                            traffic.
+                                            We also share information about your use of our site with our social media, advertising and analytics
+                                            partners
+                                            who may combine it with other information that you've provided to them or that they've collected from
+                                            your use
+                                            of their services. You consent to our cookies if you continue to use our website.
+                                        </div>
+                                    </div>
+                            
+                                    <!-- personalization form -->
+                                    <div class="ghostly-consent-personalize" id="gh-cookie-personalization" style="display: none;"></div>
+                            
+                                    <!-- consent actions -->
+                                    <div class="ghostly-consent-banner__actions">
+                                        <a href="#" class="ghostly-consent-banner__cta" id="gh-cookie-enable">Accept all</a>
+                                        <a href="javascript:void(0);" class="ghostly-consent-banner__cta ghostly-consent-banner__cta--secondary"
+                                            id="gh-cookie-decline">Decline all</a>
+                                        <a href="javascript:void(0);"
+                                            class="ghostly-consent-banner__cta ghostly-consent-banner__cta--secondary pull-right"
+                                            id="gh-cookie-personalize">Personalize</a>
+                                    </div>
+                                    <!-- /-- consent actions --/ -->
+                                </div>
+                            </div>
+                            <!-- DEMO END -->
+                        </div>
+
+                    </div>
+                    <!-- Preview end -->
+
+                    <!-- Settings -->
+                    <div class="col" id="config-settings">
+
+                        <ul class="nav nav-pills mb-3 bg-dark-1" id="nav-settings" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link text-white active" id="pills-properties-tab" data-toggle="tab" href="#properties" role="tab"
+                                    aria-controls="properties-tab" aria-selected="true">
+                                    <span class="material-icons va-sub fs-25 d-block text-center mb-1">settings</span>
+                                    Properties
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" id="pills-styling-tab" data-toggle="tab" href="#styling" role="tab"
+                                aria-controls="styling-tab" aria-selected="false">
+                                    <span class="material-icons va-sub fs-25 d-block text-center mb-1">format_color_fill</span>
+                                    Styling
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" id="pills-text-tab" data-toggle="tab" href="#text" role="tab"
+                                aria-controls="text-tab" aria-selected="false">
+                                <span class="material-icons va-sub fs-25 d-block text-center mb-1">title</span>
+                                Text
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" id="pills-files-tab" data-toggle="tab" href="#files" role="tab"
+                            aria-controls="files-tab" aria-selected="false">
+                            <span class="material-icons va-sub fs-25 d-block text-center mb-1">description</span>
+                                    Files
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" id="pills-result-tab" data-toggle="tab" href="#result" role="tab"
+                                    aria-controls="result-tab" aria-selected="false">
+                                    <span class="material-icons va-sub fs-25 d-block text-center mb-1">done</span>
+                                    Result
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="mt-4 pl-4 pr-4 overflow-scroll">
+                            <div class="tab-content pl-0">
+                                <!-- Primary settings -->
+                                <div class="tab-pane fade show active" id="properties" role="tabpanel" aria-labelledby="properties-tab">
+                                    <h3>Start here</h3>
+                                    <p class="lead">Empty fields will be overwritten with default values.</p>
+
+                                    <div class="mx-auto">
+                                        <div class="form-group text-left">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" placeholder="Name for your cookie">
+                                            <small id="emailHelp" class="form-text text-muted">Default: <abbr class="text-danger">_ghostly_consent</abbr></small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mx-auto mt-3">
+                                        <div class="form-group text-left">
+                                            <label for="name">Domain name</label>
+                                            <input type="text" class="form-control" placeholder="Your domain name">
+                                            <small id="emailHelp" class="form-text text-muted">Default: <abbr class="text-danger">.your-domain.com</abbr> (. + window.location.host)</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mx-auto mt-3">
+                                        <div class="form-group text-left">
+                                            <label for="name">Valid for: (days)</label>
+                                            <input type="number" class="form-control" placeholder="Number of days it will be saved for" maxlength="4" minlength="1" value="365">
+                                            <small id="emailHelp" class="form-text text-muted">Default: <abbr class="text-danger">365</abbr></small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mx-auto mt-3">
+                                        <div class="form-check text-left">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Destroy after accepted/declined</label>
+                                            <small id="emailHelp" class="form-text text-muted">Default: <abbr class="text-danger">false</abbr> (this will destroy the html container and reinitialization is currently not available if this is enabled)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Primary settings end -->
+                                
+                                <!-- Texts -->
+                                <div class="tab-pane fade" id="styling" role="tabpanel" aria-labelledby="styling-tab">
+
+                                    <div class="mx-auto">
+                                        <div class="form-group text-left">
+                                            <label for="name">Colors</label>
+                                            <input type="color" class="form-control p-0" placeholder="Name for your cookie">
+                                            <small id="emailHelp" class="form-text text-muted">Default value is <abbr
+                                                    class="text-danger">_ghostly_consent</abbr></small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Texts end -->
+
+                                <!-- Texts -->
+                                <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="text-tab">
+                                    <div class="mx-auto">
+                                        <div class="form-group text-left">
+                                            <label for="name">Title</label>
+                                            <input type="text" class="form-control" placeholder="Consent title" value="THIS WEBSITE USES COOKIES">
+                                        </div>
+                                    </div>
+
+                                    <div class="mx-auto">
+                                        <div class="form-group text-left">
+                                            <label for="name">Description</label>
+<textarea type="text" class="form-control" placeholder="Description" style="min-height: 100px;">
+We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also
+share information about your use of our site with our social media, advertising and analytics partners who may combine
+it with other information that you've provided to them or that they've collected from your use of their services. You
+consent to our cookies if you continue to use our website.
+</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="mx-auto">
+                                        <div class="form-group text-left">
+                                            <label for="name">Accept all</label>
+                                            <input type="text" class="form-control" placeholder="Text: Accept all" value="Accept all">
+                                        </div>
+                                    </div>
+
+                                    <div class="mx-auto">
+                                        <div class="form-group text-left">
+                                            <label for="name">Accept selected</label>
+                                            <input type="text" class="form-control" placeholder="Text: Accept selected" value="Accept selected">
+                                        </div>
+                                    </div>
+
+                                    <div class="mx-auto">
+                                        <div class="form-group text-left">
+                                            <label for="name">Decline all</label>
+                                            <input type="text" class="form-control" placeholder="Text: Decline all" value="Decline all">
+                                        </div>
+                                    </div>
+
+                                    <div class="mx-auto">
+                                        <div class="form-group text-left">
+                                            <label for="name">Personalize</label>
+                                            <input type="text" class="form-control" placeholder="Text: Personalize" value="Personalize">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!-- Texts end -->
+
+                                <!-- Elements -->
+                                <!-- Elements end -->
+
+                                <!-- Files -->
+                                <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+                                    <button class="btn btn-primary-app">New file +</button>
+                                </div>
+                                <!-- Files end -->
+                            </div>
+
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <button class="btn btn-secondary" disabled>Previous</button>
+                                    <button class="btn btn-primary-app pull-right">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Settings end-->
+                </div>
+            </div>
+            <!-- configurator end -->
+        </main>
+
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.3.5/split.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/configurator.js"></script>
+
+        <!-- GhostlyConsent -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.css">
+        <script src="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.js"></script>
+
+    </body>
+</html>

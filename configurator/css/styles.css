@@ -1,0 +1,105 @@
+/**
+ *	configurator styles 2021
+ *	v1.0.0
+ *
+ *	@author Marcos Raudkett 2021
+ *  @license MIT (https://opensource.org/licenses/MIT)
+*/
+html, body {
+  overflow: hidden;
+}
+
+#config-preview {
+  background: #eaeaea;
+}
+.overflow-scroll {
+  overflow-y: auto;
+}
+
+.split, .gutter.gutter-horizontal {
+    background: #777777;
+    height: 100vh;
+}
+
+.gutter.gutter-horizontal {
+  cursor: ew-resize;
+}
+
+/** helpers **/
+
+.fs-25 { font-size: 25px; }
+.fs-22 { font-size: 22px; }
+.fs-20 { font-size: 20px; }
+.pull-right {
+  float:right;
+}
+
+.va-sub { vertical-align: sub; }
+.va-middle { vertical-align: middle; }
+
+.bg-dark-1 {
+  background-color: #495158!important;
+}
+
+.br-0 {
+  border-radius: 0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  border-radius: 0;
+}
+
+.nav {
+      display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.btn-primary-app {
+  color: #fff;
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.btn-primary-app:hover {
+  color: #fff;
+  background-color: #3d9040;
+  border-color: #3d9040;
+}
+
+.btn-primary-app:focus, .btn-primary-app.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 64, 0.5);
+}
+
+.btn-primary-app.disabled, .btn-primary-app:disabled {
+  color: #fff;
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.btn-primary-app:not(:disabled):not(.disabled):active, .btn-primary-app:not(:disabled):not(.disabled).active,
+.show > .btn-primary-app.dropdown-toggle {
+  color: #fff;
+  background-color: #3d9040;
+  border-color: #3d9040;
+}
+
+.btn-primary-app:not(:disabled):not(.disabled):active:focus, .btn-primary-app:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary-app.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 64, 0.5);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #4caf50;
+}
+
+.ghostly-consent-banner {
+  position: relative !important;
+}

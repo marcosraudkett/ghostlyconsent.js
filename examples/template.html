@@ -1,0 +1,60 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>GhostlyConsent.js - Modal Example</title>
+    
+    <!-- GhostlyConsent.js -->
+    <script src="../src/GhostlyConsent.js"></script>
+  </head>
+  
+  <div class="text-center">
+    <a href="index.html">Simple</a>
+    <a href="minimal.html">Minimal</a>
+    <a href="modal.html">Modal Example</a>
+    <a href="events.html">Events</a>
+    <a href="#">Template</a>
+  </div>
+
+  <script>
+  const files = [
+    {
+      title: 'Google Fonts',
+      name: 'font',
+      file: 'https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap',
+      type: 'css',
+      ajax: false,
+      disallowed: false
+    },
+    analytics = [
+      {
+        scope: 'meta',
+        title: 'Google Analytics',
+        name: 'analytics'
+      },
+      {
+        scope: 'permissions',
+        disallowed: false
+      },
+      {
+        file: 'https://www.googletagmanager.com/gtag/js?id=UA-44404621-1',
+        type: 'js'
+      },
+      {
+        file: '../../vendor/Google-Analytics.js', 
+        type: 'js'
+      }
+    ],
+  ];
+
+  // initialize
+  ghostlyConsent.init({
+      name: '_template',
+      templateLocation: '/GhostlyConsent.js/src/views/default.html',
+      useTemplate: true,
+      elements: {
+        consentWrapper: '#gh-cookie-consent'
+      },
+  }, files);
+</script>

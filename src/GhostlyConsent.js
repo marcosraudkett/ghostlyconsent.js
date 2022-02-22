@@ -1,8 +1,8 @@
 /**
- *	GhostlyConsent.js 2021
- *	v2.0.1
+ *  GhostlyConsent.js 2021
+ *  v2.0.5
  *
- *	@author Marcos Raudkett 2021
+ *  @author Marcos Raudkett 2021
  *  @license MIT (https://opensource.org/licenses/MIT)
 */
 let ghostlyConsent = {
@@ -15,6 +15,7 @@ let ghostlyConsent = {
     _register: false,
     _ajax: false,
     _isModal: false,
+    _useStorage: false,
     _length: 365,
     _text: {
       acceptSelected: 'Accept selected',
@@ -29,7 +30,16 @@ let ghostlyConsent = {
       modalWrapper: '#gh-modal',
       buttonsPersonalize: '#gh-cookie-personalize',
       buttonsEnable: '#gh-cookie-enable',
-      buttonsDecline: '#gh-cookie-decline'
+      buttonsDecline: '#gh-cookie-decline',
+      buttonsClose: '.gh-close'
+    },
+    _template: {
+      _isReady: false,
+      _isLoading: false,
+      _content: '',
+      _useTemplate: false,
+      _location: window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/views/',
+      _template: 'default.html'
     },
     _cookie: '_ghostly_consent',
     _path: '.'+window.location.host,
@@ -49,27 +59,31 @@ let ghostlyConsent = {
    */
   init: function(options = null, files = null, callbacks = null) {
     var _this = this;
-    var cookie = this.get(this._config._cookie); // get cookie
     this.setOptions(options, files); // set user defined options
-    this.bindEvents(); // bind clicks and other misc events
-    if(this.get(this._config._cookie) == 'true') { 
-      if(this.get('_ghostly_files')) {
-        this.load(JSON.parse(this.get('_ghostly_files')));
-      } else {
-        this.set(JSON.stringify(this._files), '_ghostly_files');
-        this.load();
-      }
-    } // check cookie value for loading files
-    this.register(); // register Ghostly (for analytical purposes)
-    if(!this.check()) { this.display(true); this.addEvent('status', false); } else { if(this._config._destroy) { this.destroy(); this.addEvent('status', true); } } // check if cookie isset
-    var buttonsPersonalize = document.querySelector(this._config._elements.buttonsPersonalize);
 
-    if(!files) {
-      buttonsPersonalize.remove();
+    if (this._config._template._useTemplate) {
+      this.addEvent('templateLoad', true);
+      ghostlyConsent.on('templateLoad', () => {}); 
+    } 
+
+    if (this._config._template._useTemplate && this._config._template._isReady || document.querySelector(this._config._elements.consentWrapper)) {
+      this.bindEvents(); // bind clicks and other misc events
+      if (this.get(this._config._cookie) == 'true') {
+        if (this.get('_ghostly_files')) {
+          this.load(JSON.parse(this.get('_ghostly_files')));
+        } else {
+          this.set(JSON.stringify(this._files), '_ghostly_files');
+          this.load();
+        }
+      } // check cookie value for loading files
+      // check if cookie isset (if not then display banner, if yes then do nothing)
+      if (!this.check()) { this.display(true); } else { if (this._config._destroy) { this.destroy(); } } 
+
+      // event 
+      this.addEvent('initialized', true);
     }
 
-    // event 
-    this.addEvent('initialized', true);
+    this.register(); // register Ghostly (for analytical purposes)
 
     return new Promise(function (resolve, reject) {
         _this.ready(resolve, reject);
@@ -93,16 +107,22 @@ let ghostlyConsent = {
    */
   get: function(name) {
     if(!name) { name = this._config._cookie; }
-    let cname = name + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(cname) == 0) {
-        return c.substring(cname.length, c.length);
+    if (this._config._useStorage)
+    {
+      var cname = localStorage.getItem(name);
+      return cname;
+    } else {
+      let cname = name + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(cname) == 0) {
+          return c.substring(cname.length, c.length);
+        }
       }
     }
     return "";
@@ -113,6 +133,7 @@ let ghostlyConsent = {
    * @param {bool} value 
    */
   set: function(value, name = null) {
+    if (name) { name = name; } else { name = this._config._cookie; } 
     var now = new Date();
     var time = now.getTime();
     if(!this._length) {
@@ -128,10 +149,10 @@ let ghostlyConsent = {
       var expireTime = e.addDays(this._length);   
     }
     now.setTime(expireTime);
-    if(name) {
-      document.cookie = name+'='+value+'; expires='+now.toGMTString()+';domain='+this._config._path+';path=/';
+    if (this._config._useStorage) {
+      localStorage.setItem(name, value);
     } else {
-      document.cookie = this._config._cookie+'='+value+'; expires='+now.toGMTString()+';domain='+this._config._path+';path=/';
+        document.cookie = name+'='+value+'; expires='+now.toGMTString()+';domain='+this._config._path+';path=/';
     }
   },
 
@@ -304,10 +325,12 @@ let ghostlyConsent = {
    */
   check: function() {
     var cookie = this.get(this._config._cookie);
-    if(cookie) {
-      return true;
+    if(cookie == '') {
+      return false
     } else {
-      return false;
+      if(cookie == 'false' || cookie == 'true') {
+        return true;
+      }
     }
   },
 
@@ -357,6 +380,10 @@ let ghostlyConsent = {
       if(typeof options.debug !== 'undefined') { this._config._debug = options.debug; } 
       if(typeof options.isModal !== 'undefined') { this._config._isModal = options.isModal; } 
       if(typeof options.destroy !== 'undefined') { this._config._destroy = options.destroy; } 
+      if (typeof options.storage !== 'undefined') { this._config._useStorage = options.storage; }
+      if (typeof options.template !== 'undefined') { this._config._template._template = options.template; }
+      if (typeof options.templateLocation !== 'undefined') { this._config._template._location = options.templateLocation; } 
+      if (typeof options.useTemplate !== 'undefined') { this._config._template._useTemplate = options.useTemplate; }
 
       if(typeof options.text !== 'undefined') {
         for (const [key, value] of Object.entries(options.text)) {
@@ -390,11 +417,12 @@ let ghostlyConsent = {
   bindEvents: function() {
     invalid = [];
     for (const [key, value] of Object.entries(this._config._elements)) {
-      var element = document.querySelector(value);
+      const element = document.querySelector(value);
       switch(key) {
-        case 'buttonsEnable': if(element) { element.addEventListener('click', function(eventObj) { ghostlyConsent.enable(true) }); element.innerText = this._config._text.acceptAll; } else { invalid.push(value) } break;
-        case 'buttonsDecline': if(element) { element.addEventListener('click', function(eventObj) { ghostlyConsent.enable(false) }); element.innerText = this._config._text.declineAll; } else { invalid.push(value) } break;
-        case 'buttonsPersonalize': if(element) { element.addEventListener('click', function(eventObj) { ghostlyConsent.personalize(files) }); element.innerText = this._config._text.personalize; } else { invalid.push(value) } break;
+        case 'buttonsEnable': if(element) { element.addEventListener('click', function() { ghostlyConsent.enable(true) }); element.innerText = this._config._text.acceptAll; } else { invalid.push(value) } break;
+        case 'buttonsDecline': if(element) { element.addEventListener('click', function() { ghostlyConsent.enable(false) }); element.innerText = this._config._text.declineAll; } else { invalid.push(value) } break;
+        case 'buttonsPersonalize': if(element) { element.addEventListener('click', function() { ghostlyConsent.personalize(files) }); element.innerText = this._config._text.personalize; } else { invalid.push(value) } break;
+        case 'buttonsClose': if(element) { element.addEventListener('click', function() { ghostlyConsent.display(false) }); }  break;
       }
     }
 
@@ -476,7 +504,7 @@ let ghostlyConsent = {
    * Load file using XMLHttpRequest();
    * @param {*} file 
    */
-  getFile: function(file) {
+  getFile: async function(file) {
     var xhttp = new XMLHttpRequest();
     if(file.method) {
       xhttp.open(file.method, file.file, true);
@@ -484,6 +512,28 @@ let ghostlyConsent = {
       xhttp.open(this._config._method, file.file, true);
     }
     xhttp.send();
+    xhttp.onreadystatechange = function () {
+      return xhttp.responseText;
+    }
+  },
+
+  loadTemplate: async function() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('GET', `${this._config._template._location}`, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        ghostlyConsent._config._template._content = xhttp.responseText;
+        ghostlyConsent.addEvent('templateLoaded', true);
+        ghostlyConsent._config._template._isReady = true;
+        ghostlyConsent.appendFile({ file: xhttp.responseText, type: 'template' })
+        return xhttp.responseText;
+      }
+    }
+  },
+
+  getTemplate: function() {
+    return this.loadTemplate();
   },
 
   /**
@@ -506,6 +556,20 @@ let ghostlyConsent = {
           link.setAttribute('rel', 'stylesheet');
           link.setAttribute('href', file.file);
           document.head.appendChild(link);
+        break;
+
+        case "template": // used for templates
+            if (this._config._template._isReady && this._config._template._content) {
+              var element = document.getElementsByTagName("ghostly");
+              if (element.length == 0) { // only allow one template to be loaded
+                var template = document.createElement('ghostly');
+                template.innerHTML = file.file;
+                document.body.appendChild(template);
+                setTimeout(() => {
+                  ghostlyConsent.init();
+                }, 100);
+              }
+            }
         break;
       }
     } else {
@@ -581,7 +645,7 @@ let ghostlyConsent = {
   },    
 
   /**
-   * Register Ghostly (can be disabled using options)
+   * Register Ghostly (disabled by default)
    * For analytic purposes (only sends the hostname)
    */
    register: function() {
@@ -595,7 +659,7 @@ let ghostlyConsent = {
               this.set(true, '_ghostly_register');
             }
         };
-        xhttp.open("GET", "https://api.marcosraudkett.com/register?source="+app, true);
+        xhttp.open("GET", "https://api.marcosraudkett.com/register?source="+app+"&app=ghostlyConsent.js", true);
         xhttp.send();
       }
     }
@@ -659,6 +723,15 @@ let ghostlyConsent = {
       'event': event,
       'value': value
     });
+
+    setTimeout(() => {
+      if (event == 'initialized') {
+        var buttonsPersonalize = document.querySelector(this._config._elements.buttonsPersonalize);
+        if (!this._files.length > 0) {
+          buttonsPersonalize.remove();
+        }
+      }
+    }, 100);
   },
 
   /**
@@ -670,12 +743,60 @@ let ghostlyConsent = {
       if(events.length > 0) {
         events.forEach((event, index) => {
           if(state == event.event) { 
+            events.splice(index, 1); 
             callback(event); 
+          }
+
+          
+          if (event.event == "templateLoad" && !ghostlyConsent._config._template._isLoading)  {
+            ghostlyConsent.getTemplate();
+            ghostlyConsent._config._template._isLoading = true;
             events.splice(index, 1); 
           }
         });
       }
     }, 100);
+  },
+
+  /* API */
+
+  /**
+   * API - add files to personalize
+   * @param {*} event 
+   * @param {*} value 
+   */
+  addFiles: function(files) {
+    this.addEvent("addFiles", true);
+    if(Array.isArray(files)) {
+      if(files.length > 0) {
+        this._files = files;
+      } else {
+        this.error('addFiles array cannot be empty.');
+      }
+    } else {
+      this.error('addFiles expected an array.');
+    }
+  },
+
+  /**
+   * API - add a single file
+   * @param {*} event 
+   * @param {*} value 
+   */
+  addFile: function(file) {
+    this.addEvent("addFile", true);
+    if(!Array.isArray(file)) {
+        this._files.push(file);
+    } else {
+      this.error('addFile expected an object. but got array instead');
+    } 
+  },
+
+  /**
+   *  API - get files
+   */
+  getFiles: function() {
+    return this._files;
   },
 
 }

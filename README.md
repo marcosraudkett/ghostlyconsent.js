@@ -19,18 +19,18 @@ Adding it to your project:
 <script src="path/to/dist/GhostlyConsent.js"></script>
 ```
 
-Via CDN
+Via CDN (Current)
 ```html
 <!-- Using CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.css">
-<script src="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/src/GhostlyConsent.css">
+<script src="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/src/GhostlyConsent.js"></script>
 ```
 
-Via CDN - Minified
+Via CDN - Minified (Current)
 ```html
 <!-- CDN - Minified -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.min.css">
-<script src="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/dist/GhostlyConsent.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/src/GhostlyConsent.min.css">
+<script src="https://cdn.jsdelivr.net/gh/marcosraudkett/GhostlyConsent.js@main/src/GhostlyConsent.min.js"></script>
 ```
 
 

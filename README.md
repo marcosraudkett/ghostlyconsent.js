@@ -35,15 +35,17 @@ Via CDN - Minified (Current)
 
 
 ## Usage
+You can use the example below in an existing file on your site. The example below loads the consent template from `templateLocation` and `useTemplate` enables the template usage.
 Basic usage:
 ```js
-// Options
-// callback option sends accepted/allowed files to specified url as POST request with application/json header for tracking (optional)
-const options = {
+// Properties
+// Check src/properties.js for full list of properties.
+const properties = {
+    templateLocation: '../src/views/default.html',
+    useTemplate: true,
     elements: {
         consentWrapper: '#gh-cookie-consent'
     },
-    callback: 'https://example.com/callback'
 };
 
 // files you wish to load after accepted 
@@ -84,7 +86,7 @@ const files = [
 ];
 
 // initialize
-ghostlyConsent.init(options, files);
+ghostlyConsent.init(properties, files);
 
 // when consent status is changed
 ghostlyConsent.on('status', (event) => {
@@ -93,21 +95,42 @@ ghostlyConsent.on('status', (event) => {
 
   if (event.value) {
     // do something if consent is accepted
-    // alternatively you can use this to load your own files
-    // or do something else..
     console.log("Consent was accepted");
+    // alternatively you can use this to load files:
+    ghostlyConsent.addFiles([
+        {
+            title: 'Google Fonts',
+            name: 'font',
+            file: 'https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap',
+            type: 'css',
+        },
+        {
+            title: 'Test script',
+            name: 'test',
+            file: '/',
+            type: 'js',
+        }
+    ]);
+    // or do something else..
   } else {
     // do something if consent is rejected
     console.log("Consent was rejected");
   }
 });
+
+// listen for file additions
+ghostlyConsent.on('addFile', (event) => { 
+  // get files
+  const files = ghostlyConsent.getFiles();
+  console.log(files); // loaded files
+});
 ```
 
-## Options
-Here's everything you can setup: (none of the options are required)
+## Properties
+Here's everything you can setup: (none of the properties are required)
 <table>
   <thead>
-    <th>Option</th>
+    <th>Property</th>
     <th>Description</th>
     <th>Type</th>
     <th>Default</th>
@@ -181,10 +204,10 @@ Here's everything you can setup: (none of the options are required)
   </tbody>
 </table>
 
-Options.elements:
+Properties.elements:
 <table>
   <thead>
-    <th>Option</th>
+    <th>Property</th>
     <th>Description</th>
     <th>Type</th>
     <th>Default</th>
@@ -242,10 +265,10 @@ Options.elements:
   </tbody>
 </table>
 
-Options.text:
+Properties.text:
 <table>
   <thead>
-    <th>Option</th>
+    <th>Property</th>
     <th>Type</th>
     <th>Default</th>
     <th>Required</th>

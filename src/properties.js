@@ -1,4 +1,7 @@
-const options = {
+/**
+ * List of properties and default values.
+ */
+const properties = {
     // cookie name
     name: 'index',
     // your domain
@@ -43,4 +46,4 @@ const options = {
 const files = [];
 
 // initialize ghostlyConsent
-ghostlyConsent.init(options, files);
+ghostlyConsent.init(properties, files);
